@@ -5,8 +5,8 @@ services:
     container_name: postgres
     image: postgres
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: 123456
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
       PGDATA: /data/postgres
       SERVICE_NAME: postgres
     volumes:
@@ -53,4 +53,3 @@ services:
 
 networks:
   app:
-    driver: bridge

@@ -7,7 +7,7 @@ import (
 	"github.com/EliasSantiago/app-bank-transactions/core/dto"
 )
 
-func (repository repository) Create(userRequest *dto.CreateUserRequest) (*domain.User, error) {
+func (repository repository) Create(userRequest *dto.CreateUserStore) error {
 	ctx := context.Background()
 	user := domain.User{}
 	err := repository.db.QueryRow(
@@ -30,7 +30,7 @@ func (repository repository) Create(userRequest *dto.CreateUserRequest) (*domain
 		&user.CreatedAt,
 	)
 	if err != nil {
-		return nil, err
+		return err
 	}
-	return &user, nil
+	return nil
 }

@@ -10,7 +10,7 @@ type User struct {
 	ID        string `json:"id"`
 	Name      string `json:"name"`
 	Email     string `json:"email"`
-	Cpf       string `json:"cpj"`
+	Cpf       string `json:"cpf"`
 	Cnpj      string `json:"cnpj"`
 	Password  string `json:"password"`
 	CreatedAt int64  `json:"created_at"`
@@ -21,9 +21,9 @@ type UserService interface {
 }
 
 type UserUseCase interface {
-	Create(userRequest *dto.CreateUserRequest) (*User, error)
+	Create(userRequest *dto.CreateUserRequest) (*dto.CreateUserResponse, error)
 }
 
 type UserRepository interface {
-	Create(userRequest *dto.CreateUserRequest) (*User, error)
+	Create(userRequest *dto.CreateUserStore) error
 }
