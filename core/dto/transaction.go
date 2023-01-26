@@ -16,7 +16,7 @@ type CreateTransactionResponse struct {
 	From      string  `json:"from"`
 	To        string  `json:"to"`
 	Value     float64 `json:"value"`
-	Status    bool    `json:"status"`
+	Status    string  `json:"status"`
 	CreatedAt int64   `json:"created_at"`
 }
 
@@ -27,7 +27,6 @@ type CreateTransactionStore struct {
 	Value     float64 `db:"value"`
 	Status    bool    `db:"status"`
 	CreatedAt int64   `db:"created_at"`
-	UpdatedAt int64   `db:"updated_at"`
 }
 
 func FromJSONCreateTransactionRequest(body io.Reader) (*CreateTransactionRequest, error) {

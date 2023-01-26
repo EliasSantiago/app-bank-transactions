@@ -16,7 +16,7 @@ func OpenChannel() (*amqp.Channel, error) {
 
 func Consume(ch *amqp.Channel, out chan amqp.Delivery) error {
 	msgs, err := ch.Consume(
-		"orders",
+		"transactions",
 		"go-consumer",
 		false,
 		false,
