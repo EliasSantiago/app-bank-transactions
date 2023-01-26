@@ -34,7 +34,6 @@ type CreateUserStore struct {
 
 func FromJSONCreateUserRequest(body io.Reader) (*CreateUserRequest, error) {
 	createUserRequest := CreateUserRequest{}
-
 	if err := json.NewDecoder(body).Decode(&createUserRequest); err != nil {
 		return nil, err
 	}

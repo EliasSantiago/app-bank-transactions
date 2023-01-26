@@ -1,3 +1,4 @@
+BEGIN;
 CREATE TABLE users (
   id VARCHAR(32),
   name VARCHAR(50) NOT NULL,
@@ -9,3 +10,4 @@ CREATE TABLE users (
   PRIMARY KEY(id),
   UNIQUE (email, cpf, cnpj)
 );
+COMMIT;
