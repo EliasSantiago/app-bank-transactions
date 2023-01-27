@@ -29,6 +29,10 @@ type CreateTransactionStore struct {
 	CreatedAt int64   `db:"created_at"`
 }
 
+type GetBalanceStore struct {
+	Balance float64 `db:"balance"`
+}
+
 func FromJSONCreateTransactionRequest(body io.Reader) (*CreateTransactionRequest, error) {
 	createTransactionRequest := CreateTransactionRequest{}
 	if err := json.NewDecoder(body).Decode(&createTransactionRequest); err != nil {

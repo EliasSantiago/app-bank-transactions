@@ -7,7 +7,7 @@ import (
 	"github.com/EliasSantiago/app-bank-transactions/core/dto"
 )
 
-func (repository repository) Create(transactionRequest *dto.CreateTransactionStore) error {
+func (repository repository) Transfer(transactionRequest *dto.CreateTransactionStore) error {
 	ctx := context.Background()
 	transaction := domain.Transaction{}
 	err := repository.db.QueryRow(

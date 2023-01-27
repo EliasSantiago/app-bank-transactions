@@ -5,6 +5,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/EliasSantiago/app-bank-transactions/core/domain/usecase/errors"
 	"github.com/EliasSantiago/app-bank-transactions/core/dto"
 	"github.com/google/uuid"
 	amqp "github.com/rabbitmq/amqp091-go"
@@ -33,6 +34,13 @@ func Publish(ch *amqp.Channel, transactionRequest *dto.CreateTransactionRequest)
 
 func (usecase usecase) Create(transactionRequest *dto.CreateTransactionRequest) (*dto.CreateTransactionResponse, error) {
 	uuid := uuid.New()
+	wallet, err := usecase.repository.Balance(transactionRequest.From)
+	if err != nil {
+		return nil, err
+	}
+	if transactionRequest.Value > wallet.Balance {
+		return nil, errors.InsufficientFunds()
+	}
 	store := &dto.CreateTransactionStore{
 		ID:        strings.Replace(uuid.String(), "-", "", -1),
 		From:      transactionRequest.From,

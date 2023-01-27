@@ -14,12 +14,16 @@ type Wallet struct {
 	UpdatedAt int64  `json:"updated_at"`
 }
 
+type Balance struct {
+	Balance string `json:"balance"`
+}
+
 type WalletService interface {
 	Create(response http.ResponseWriter, request *http.Request)
 }
 
 type WalletUseCase interface {
-	Create(userRequest *dto.CreateWalletRequest) (*dto.CreateWalletResponse, error)
+	Create(walletRequest *dto.CreateWalletRequest) (*dto.CreateWalletResponse, error)
 }
 
 type WalletRepository interface {

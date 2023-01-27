@@ -25,6 +25,10 @@ type CreateWalletStore struct {
 	UpdatedAt int64   `db:"updated_at"`
 }
 
+type GetBalanceResponse struct {
+	Balance float64 `json:"balance"`
+}
+
 func FromJSONCreateWalletRequest(body io.Reader) (*CreateWalletRequest, error) {
 	createWalletRequest := CreateWalletRequest{}
 	if err := json.NewDecoder(body).Decode(&createWalletRequest); err != nil {

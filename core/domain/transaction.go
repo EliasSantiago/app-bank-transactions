@@ -20,9 +20,12 @@ type TransactionService interface {
 }
 
 type TransactionUseCase interface {
-	Create(userRequest *dto.CreateTransactionRequest) (*dto.CreateTransactionResponse, error)
+	Create(transactionRequest *dto.CreateTransactionRequest) (*dto.CreateTransactionResponse, error)
+	Transfer(transactionRequest *dto.CreateTransactionResponse) error
+	Balance(id string) (*dto.GetBalanceResponse, error)
 }
 
 type TransactionRepository interface {
-	Create(transactionRequest *dto.CreateTransactionStore) error
+	Transfer(transactionRequest *dto.CreateTransactionStore) error
+	Balance(id string) (*dto.GetBalanceStore, error)
 }
