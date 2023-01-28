@@ -24,9 +24,11 @@ type TransactionUseCase interface {
 	Transfer(transactionRequest *dto.CreateTransactionResponse) error
 	Balance(id string) (*dto.GetBalanceResponse, error)
 	Consumer()
+	Check(id string) (bool, error)
 }
 
 type TransactionRepository interface {
 	Transfer(transactionRequest *dto.CreateTransactionStore) error
 	Balance(id string) (*dto.GetBalanceStore, error)
+	Check(id string) (bool, error)
 }

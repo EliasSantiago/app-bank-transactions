@@ -34,9 +34,16 @@ func Publish(ch *amqp.Channel, transactionRequest *dto.CreateTransactionResponse
 
 func (usecase usecase) Create(transactionRequest *dto.CreateTransactionRequest) (*dto.CreateTransactionResponse, error) {
 	uuid := uuid.New()
+	check, err := usecase.Check(transactionRequest.From)
+	if err != nil {
+		return nil, errors.CheckDataExists()
+	}
+	if !check {
+		return nil, errors.WalletNotExist()
+	}
 	wallet, err := usecase.repository.Balance(transactionRequest.From)
 	if err != nil {
-		return nil, err
+		return nil, errors.GetBalance()
 	}
 	if transactionRequest.Value > wallet.Balance {
 		return nil, errors.InsufficientFunds()

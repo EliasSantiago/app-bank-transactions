@@ -1,6 +1,8 @@
 package transactionusecase
 
-import "github.com/EliasSantiago/app-bank-transactions/core/domain"
+import (
+	"github.com/EliasSantiago/app-bank-transactions/core/domain"
+)
 
 type usecase struct {
 	repository domain.TransactionRepository
