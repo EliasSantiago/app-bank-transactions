@@ -7,10 +7,12 @@ import (
 	"net/http"
 	"os"
 
+	_ "github.com/EliasSantiago/app-bank-transactions/adapter/http/docs"
 	"github.com/EliasSantiago/app-bank-transactions/adapter/postgres"
 	"github.com/EliasSantiago/app-bank-transactions/di"
 	"github.com/gorilla/mux"
 	"github.com/spf13/viper"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 func init() {
@@ -21,6 +23,13 @@ func init() {
 	}
 }
 
+// @title Clean GO API Docs
+// @version 1.0.0
+// @contact.name Elias Fonseca
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+// @host localhost:3001
+// @BasePath /
 func main() {
 	arg1 := os.Args[1]
 	println(arg1)
@@ -33,6 +42,7 @@ func main() {
 		walletService := di.ConfigWalletDI(conn)
 		transactionService := di.ConfigTransactionDI(conn)
 		router := mux.NewRouter()
+		router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
 		router.Handle("/user", http.HandlerFunc(userService.Create)).Methods("POST")
 		router.Handle("/wallet", http.HandlerFunc(walletService.Create)).Methods("POST")
 		router.Handle("/transaction", http.HandlerFunc(transactionService.Create)).Methods("POST")

@@ -19,4 +19,12 @@ var (
 		err := errors.New("Wallet does not exist")
 		return err
 	}
+	UpdateBalance = func() error {
+		err := errors.New("Failed to update balance")
+		return err
+	}
+	InvalidParameters = func() error {
+		err := errors.New("Invalid parameters")
+		return err
+	}
 )

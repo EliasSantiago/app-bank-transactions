@@ -30,5 +30,6 @@ type TransactionUseCase interface {
 type TransactionRepository interface {
 	Transfer(transactionRequest *dto.CreateTransactionStore) error
 	Balance(id string) (*dto.GetBalanceStore, error)
+	UpdateBalance(value float64, id string) error
 	Check(id string) (bool, error)
 }

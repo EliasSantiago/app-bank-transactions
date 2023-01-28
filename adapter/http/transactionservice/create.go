@@ -8,6 +8,14 @@ import (
 	"github.com/EliasSantiago/app-bank-transactions/core/dto"
 )
 
+// @Summary Create new transaction
+// @Description Create new transaction
+// @Tags transaction
+// @Accept  json
+// @Produce  json
+// @Param transaction body dto.CreateTransactionRequest true "transaction"
+// @Success 200 {object} domain.Transaction
+// @Router /transaction [post]
 func (service service) Create(response http.ResponseWriter, request *http.Request) {
 	defer request.Body.Close()
 	transactionRequest, err := dto.FromJSONCreateTransactionRequest(request.Body)
@@ -15,6 +23,7 @@ func (service service) Create(response http.ResponseWriter, request *http.Reques
 		errors.InvalidParameters()
 		return
 	}
+	println(transactionRequest.Value)
 	transaction, err := service.usecase.Create(transactionRequest)
 	if err != nil {
 		response.WriteHeader(500)

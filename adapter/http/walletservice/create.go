@@ -8,6 +8,14 @@ import (
 	"github.com/EliasSantiago/app-bank-transactions/core/dto"
 )
 
+// @Summary Create new wallet
+// @Description Create new wallet
+// @Tags wallet
+// @Accept  json
+// @Produce  json
+// @Param user body dto.CreateWalletRequest true "wallet"
+// @Success 200 {object} domain.Wallet
+// @Router /wallet [post]
 func (service service) Create(response http.ResponseWriter, request *http.Request) {
 	defer request.Body.Close()
 	walletRequest, err := dto.FromJSONCreateWalletRequest(request.Body)

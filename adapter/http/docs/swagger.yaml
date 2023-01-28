@@ -1,0 +1,157 @@
+basePath: /
+definitions:
+  domain.Transaction:
+    properties:
+      created_at:
+        type: integer
+      from:
+        type: string
+      id:
+        type: string
+      status:
+        type: boolean
+      to:
+        type: string
+      value:
+        type: number
+    type: object
+  domain.User:
+    properties:
+      cnpj:
+        type: string
+      cpf:
+        type: string
+      created_at:
+        type: integer
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  domain.Wallet:
+    properties:
+      balance:
+        type: string
+      created_at:
+        type: integer
+      id:
+        type: string
+      updated_at:
+        type: integer
+      user_id:
+        type: string
+    type: object
+  dto.CreateTransactionRequest:
+    properties:
+      from:
+        type: string
+      to:
+        type: string
+      value:
+        type: number
+    type: object
+  dto.CreateUserRequest:
+    properties:
+      cnpj:
+        type: string
+      cpf:
+        type: string
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  dto.CreateWalletRequest:
+    properties:
+      balance:
+        type: number
+      user_id:
+        type: string
+    type: object
+host: localhost:3001
+info:
+  contact:
+    name: Elias Fonseca
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Clean GO API Docs
+  version: 1.0.0
+paths:
+  /transaction:
+    post:
+      consumes:
+      - application/json
+      description: Create new transaction
+      parameters:
+      - description: transaction
+        in: body
+        name: transaction
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateTransactionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Transaction'
+      summary: Create new transaction
+      tags:
+      - transaction
+  /user:
+    post:
+      consumes:
+      - application/json
+      description: Create new user
+      parameters:
+      - description: user
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.User'
+      summary: Create new user
+      tags:
+      - user
+  /wallet:
+    post:
+      consumes:
+      - application/json
+      description: Create new wallet
+      parameters:
+      - description: wallet
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateWalletRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Wallet'
+      summary: Create new wallet
+      tags:
+      - wallet
+swagger: "2.0"

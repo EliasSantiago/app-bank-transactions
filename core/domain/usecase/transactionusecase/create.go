@@ -1,6 +1,7 @@
 package transactionusecase
 
 import (
+	"context"
 	"encoding/json"
 	"strings"
 	"time"
@@ -16,7 +17,7 @@ func Publish(ch *amqp.Channel, transactionRequest *dto.CreateTransactionResponse
 	if err != nil {
 		return err
 	}
-	err = ch.Publish(
+	err = ch.PublishWithContext(context.Background(),
 		"amq.direct",
 		"",
 		false,
@@ -40,6 +41,9 @@ func (usecase usecase) Create(transactionRequest *dto.CreateTransactionRequest) 
 	}
 	if !check {
 		return nil, errors.WalletNotExist()
+	}
+	if transactionRequest.Value <= 0 {
+		return nil, errors.InvalidParameters()
 	}
 	wallet, err := usecase.repository.Balance(transactionRequest.From)
 	if err != nil {
@@ -75,6 +79,9 @@ func (usecase usecase) Create(transactionRequest *dto.CreateTransactionRequest) 
 	}
 	defer ch.Close()
 	Publish(ch, response)
+
+	//TODO; Temporary call to the consumer
 	usecase.Consumer()
+
 	return response, nil
 }

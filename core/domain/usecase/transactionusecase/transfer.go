@@ -13,12 +13,29 @@ func (usecase usecase) Transfer(transactionRequest *dto.CreateTransactionRespons
 	if !check {
 		return errors.WalletNotExist()
 	}
-	wallet, err := usecase.repository.Balance(transactionRequest.From)
+	if transactionRequest.Value <= 0 {
+		return errors.InvalidParameters()
+	}
+	balanceWalletFrom, err := usecase.repository.Balance(transactionRequest.From)
 	if err != nil {
 		return errors.GetBalance()
 	}
-	if transactionRequest.Value > wallet.Balance {
+	balanceWalletTo, err := usecase.repository.Balance(transactionRequest.To)
+	if err != nil {
+		return errors.GetBalance()
+	}
+	if transactionRequest.Value > balanceWalletFrom.Balance {
 		return errors.InsufficientFunds()
+	}
+	fromBalance := balanceWalletFrom.Balance - transactionRequest.Value
+	toBalance := balanceWalletTo.Balance + transactionRequest.Value
+	err = usecase.repository.UpdateBalance(fromBalance, transactionRequest.From)
+	if err != nil {
+		return errors.UpdateBalance()
+	}
+	err = usecase.repository.UpdateBalance(toBalance, transactionRequest.To)
+	if err != nil {
+		return errors.UpdateBalance()
 	}
 	status := false
 	if transactionRequest.Status == "Pendente" {
