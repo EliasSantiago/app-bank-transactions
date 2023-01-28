@@ -23,6 +23,7 @@ type TransactionUseCase interface {
 	Create(transactionRequest *dto.CreateTransactionRequest) (*dto.CreateTransactionResponse, error)
 	Transfer(transactionRequest *dto.CreateTransactionResponse) error
 	Balance(id string) (*dto.GetBalanceResponse, error)
+	Consumer()
 }
 
 type TransactionRepository interface {

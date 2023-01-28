@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"strconv"
-	"time"
 
 	"github.com/EliasSantiago/app-bank-transactions/core/dto"
 	"github.com/EliasSantiago/app-bank-transactions/pkg/rabbitmq"
@@ -26,7 +25,13 @@ func (usecase usecase) Consumer() {
 			if err := json.Unmarshal(msg.Body, &inputDTO); err != nil {
 				panic(err)
 			}
-			status, err := strconv.ParseBool(inputDTO.Status)
+			status := false
+			if inputDTO.Status == "Pendente" {
+				status = false
+			} else {
+				status = true
+			}
+			strconv.ParseBool("true")
 			if err != nil {
 				panic(err)
 			}
@@ -44,7 +49,6 @@ func (usecase usecase) Consumer() {
 			}
 			msg.Ack(false)
 			fmt.Printf("Worker %d has processed order %s\n", i, store.ID)
-			time.Sleep(1 * time.Second)
 		}
 	}
 }

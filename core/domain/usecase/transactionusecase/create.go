@@ -11,7 +11,7 @@ import (
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
-func Publish(ch *amqp.Channel, transactionRequest *dto.CreateTransactionRequest) error {
+func Publish(ch *amqp.Channel, transactionRequest *dto.CreateTransactionResponse) error {
 	body, err := json.Marshal(transactionRequest)
 	if err != nil {
 		return err
@@ -67,6 +67,7 @@ func (usecase usecase) Create(transactionRequest *dto.CreateTransactionRequest) 
 		return nil, err
 	}
 	defer ch.Close()
-	Publish(ch, transactionRequest)
+	Publish(ch, response)
+	usecase.Consumer()
 	return response, nil
 }

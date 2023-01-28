@@ -12,7 +12,7 @@ func (repository repository) Transfer(transactionRequest *dto.CreateTransactionS
 	transaction := domain.Transaction{}
 	err := repository.db.QueryRow(
 		ctx,
-		"INSERT INTO transactions (id, from, to, status, value, created_at) VALUES ($1, $2, $3, $4, $5, $6) returning *",
+		`INSERT INTO transactions (id, "from", "to", status, value, created_at) VALUES ($1, $2, $3, $4, $5, $6) returning *`,
 		transactionRequest.ID,
 		transactionRequest.From,
 		transactionRequest.To,
