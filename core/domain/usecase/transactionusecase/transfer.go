@@ -1,6 +1,10 @@
 package transactionusecase
 
 import (
+	"encoding/json"
+	"io/ioutil"
+	"net/http"
+
 	"github.com/EliasSantiago/app-bank-transactions/core/domain/usecase/errors"
 	"github.com/EliasSantiago/app-bank-transactions/core/dto"
 )
@@ -26,6 +30,24 @@ func (usecase usecase) Transfer(transactionRequest *dto.CreateTransactionRespons
 	}
 	if transactionRequest.Value > balanceWalletFrom.Balance {
 		return errors.InsufficientFunds()
+	}
+	resp, err := http.Get("https://run.mocky.io/v3/d02168c6-d88d-4ff2-aac6-9e9eb3425e31")
+	if err != nil {
+		return errors.Unauthorized()
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return errors.Unauthorized()
+	}
+	responseString := string(body)
+	var statusAuthorization map[string]interface{}
+	err = json.Unmarshal([]byte(responseString), &statusAuthorization)
+	if err != nil {
+		return errors.Unauthorized()
+	}
+	if statusAuthorization["authorization"] == false {
+		return errors.Unauthorized()
 	}
 	fromBalance := balanceWalletFrom.Balance - transactionRequest.Value
 	toBalance := balanceWalletTo.Balance + transactionRequest.Value

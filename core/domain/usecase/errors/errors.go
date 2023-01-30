@@ -27,4 +27,8 @@ var (
 		err := errors.New("Invalid parameters")
 		return err
 	}
+	Unauthorized = func() error {
+		err := errors.New("Not authorized by external service")
+		return err
+	}
 )

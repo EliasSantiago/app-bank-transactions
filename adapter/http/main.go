@@ -33,7 +33,7 @@ func init() {
 func main() {
 	arg1 := os.Args[1]
 	println(arg1)
-	if arg1 == "option1" {
+	if arg1 == "api" {
 		ctx := context.Background()
 		conn := postgres.GetConnection(ctx)
 		defer conn.Close()
@@ -50,7 +50,7 @@ func main() {
 		log.Printf("LISTEN ON PORT: %v", port)
 		http.ListenAndServe(fmt.Sprintf(":%v", port), router)
 	}
-	if arg1 == "option2" {
+	if arg1 == "consumer" {
 		//TODO RUN CONSUMER
 		println("Run consumer...")
 	}
