@@ -23,7 +23,6 @@ func (service service) Create(response http.ResponseWriter, request *http.Reques
 		errors.InvalidParameters()
 		return
 	}
-	println(transactionRequest.Value)
 	transaction, err := service.usecase.Create(transactionRequest)
 	if err != nil {
 		response.WriteHeader(500)

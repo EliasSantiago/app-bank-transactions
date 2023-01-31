@@ -79,9 +79,5 @@ func (usecase usecase) Create(transactionRequest *dto.CreateTransactionRequest) 
 	}
 	defer ch.Close()
 	Publish(ch, response)
-
-	//TODO; Temporary call to the consumer
-	usecase.Consumer()
-
 	return response, nil
 }

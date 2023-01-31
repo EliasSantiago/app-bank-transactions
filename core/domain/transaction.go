@@ -17,6 +17,7 @@ type Transaction struct {
 
 type TransactionService interface {
 	Create(response http.ResponseWriter, request *http.Request)
+	Consumer()
 }
 
 type TransactionUseCase interface {
