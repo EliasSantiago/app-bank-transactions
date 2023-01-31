@@ -29,6 +29,9 @@ App use Golang, RabbitMQ, Postgres
 **Step 5: go mod tidy(at the root of the project)**
 - go mod tidy
 
+**Step 6: run api**
+- go run adapter/http/main.go api
+
 # Link Doc(Swagger)
 http://localhost:3001/swagger/index.html
 
