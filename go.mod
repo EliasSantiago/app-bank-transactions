@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/bxcodec/faker/v3 v3.8.1
 	github.com/golang-migrate/migrate/v4 v4.15.2
+	github.com/golang/mock v1.6.0
 	github.com/google/uuid v1.3.0
 	github.com/gorilla/mux v1.7.4
 	github.com/jackc/pgconn v1.13.0
