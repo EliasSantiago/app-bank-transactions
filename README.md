@@ -32,6 +32,9 @@ App use Golang, RabbitMQ, Postgres
 **Step 6: run api**
 - go run adapter/http/main.go api
 
+**Step 7: run consumer**
+- go run adapter/cmd/main.go
+
 # Link Doc(Swagger)
 http://localhost:3001/swagger/index.html
 
